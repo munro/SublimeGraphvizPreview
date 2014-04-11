@@ -1,0 +1,21 @@
+[
+	{
+		"caption": "Edit",
+		"mnemonic": "E",
+		"id": "edit",
+		"children": [
+			{
+				"caption": "GraphvizPreview",
+				"id": "GraphvizPreview",
+				"children": [
+					{"caption":"-"},
+					{
+						"command": "graphviz_preview",
+						"id":"graphviz_preview",
+						"caption":"Preview Graphviz Snippet"
+					}
+				]
+			}
+		]
+	}
+]
