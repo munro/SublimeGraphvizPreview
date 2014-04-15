@@ -3,6 +3,8 @@ import os
 import re
 import tempfile
 
+ENVIRON = os.environ
+ENVIRON['PATH'] += ':/usr/local/bin'
 
 DIGRAPH_START = re.compile('.*(digraph([ \t\n\r]+[a-zA-Z\200-\377_][a-zA-Z\200-\3770-9_]*[ \t\n\r]*{|[ \t\n\r]*{).*)', re.DOTALL | re.IGNORECASE)
 
@@ -41,13 +43,13 @@ def graphvizPDF(code):
     Convert graphviz code to a PDF.
     '''
     # temporary graphviz file
-    grapviz = tempfile.NamedTemporaryFile(prefix='sublime_text_graphviz_', dir=None, suffix='.viz', delete=False)
-    grapviz.write(code)
+    grapviz = tempfile.NamedTemporaryFile(prefix='sublime_text_graphviz_', dir=None, suffix='.viz', delete=False, mode='wb')
+    grapviz.write(code.encode('utf-8'))
     grapviz.close()
 
     # compile pdf
     pdf_filename = tempfile.mktemp(prefix='sublime_text_graphviz_', dir=None, suffix='.pdf')
-    call(['dot', '-Tpdf', '-o' + pdf_filename, grapviz.name])
+    call(['dot', '-Tpdf', '-o' + pdf_filename, grapviz.name], env=ENVIRON)
     os.unlink(grapviz.name)
 
     return pdf_filename
