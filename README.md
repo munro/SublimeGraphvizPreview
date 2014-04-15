@@ -6,7 +6,19 @@ Simply highlight a graphviz snippet in your file, and hit `super+shift+g` to vie
 
 ## Install
 
-Install the package `GraphvizPreview` through Package Control.
+Install the package `GraphvizPreview` through Package Control.  Works with Sublime Text 2 and Sublime Text 3 Beta.
+
+### Install Dependencies
+
+This package also requires `dot` to be installed.
+
+#### MacOS
+
+Install graphviz using [Homebrew](http://brew.sh/)
+
+```
+brew install graphviz
+```
 
 ## Installation (Manual)
 
