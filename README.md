@@ -26,3 +26,18 @@ brew install graphviz
 2. Rename resulting folder to `GraphvizPreview`
 3. Place the folder in your Sublime Text Packages folder
 
+## Changelog
+
+### Next release
+
+* Add Windows & Linux Support
+* Configurable hot key
+* Configurable `dot` binary location
+
+### v0.1.1
+
+* Added Sublime Text 3 Support
+
+### v0.1.0
+
+* Created preview plugin for Sublime Text 2 on Mac OS
