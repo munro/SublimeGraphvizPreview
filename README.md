@@ -6,7 +6,7 @@ Simply highlight a graphviz snippet in your file, and hit `super+shift+g` to vie
 
 ## Install
 
-Install the package `GraphvizPreview` through Package Control.  Works with Sublime Text 2 and Sublime Text 3 Beta.
+Install the package `GraphvizPreview` through [Package Control](https://packagecontrol.io/packages/GraphvizPreview).  Works with Sublime Text 2 and Sublime Text 3 Beta.
 
 ### Install Dependencies
 
