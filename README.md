@@ -2,7 +2,7 @@
 
 Simply highlight a graphviz snippet in your file, and hit `super+shift+g` to view it.  You can also click in the the body of a snippet.  Easy!
 
-![Example video of plugin](https://gist.github.com/munro/10435712/raw/8d018b412645185d064872ff56f701c753104d30/example.gif)
+![Example video of plugin](https://packagecontrol.io/readmes/img/376d256c225f965ec94ee25c42e66c60a98a55a7.gif)
 
 ## Install
 
