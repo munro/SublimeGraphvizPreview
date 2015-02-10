@@ -22,14 +22,14 @@ brew install graphviz
 
 ## Installation (Manual)
 
-For windows
-1. Download and install GraphViz
-2. Add the GraphViz bin folder to the env PATH variable (C:\Program Files (x86)\Graphviz\bin)
+For windows: 
+* Download and install GraphViz. 
+* Add the GraphViz bin folder to the env PATH variable (C:\Program Files (x86)\Graphviz\bin)
 
-Common:
-1. Download the zip
-2. Rename resulting folder to `GraphvizPreview`
-3. Place the folder in your Sublime Text Packages folder
+Common: 
+* Download the zip.
+* Rename resulting folder to `GraphvizPreview`.
+* Place the folder in your Sublime Text Packages folder.
 
 ## Changelog
 
