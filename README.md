@@ -2,11 +2,11 @@
 
 Simply highlight a graphviz snippet in your file, and hit `super+shift+g` to view it.  You can also click in the the body of a snippet.  Easy!
 
-![Example video of plugin](https://gist.github.com/munro/10435712/raw/8d018b412645185d064872ff56f701c753104d30/example.gif)
+![Example video of plugin](https://packagecontrol.io/readmes/img/376d256c225f965ec94ee25c42e66c60a98a55a7.gif)
 
 ## Install
 
-Install the package `GraphvizPreview` through Package Control.  Works with Sublime Text 2 and Sublime Text 3 Beta.
+Install the package `GraphvizPreview` through [Package Control](https://packagecontrol.io/packages/GraphvizPreview).  Works with Sublime Text 2 and Sublime Text 3 Beta.
 
 ### Install Dependencies
 
@@ -22,9 +22,14 @@ brew install graphviz
 
 ## Installation (Manual)
 
-1. Download the zip
-2. Rename resulting folder to `GraphvizPreview`
-3. Place the folder in your Sublime Text Packages folder
+For windows: 
+* Download and install GraphViz. 
+* Add the GraphViz bin folder to the env PATH variable (C:\Program Files (x86)\Graphviz\bin)
+
+Common: 
+* Download the zip.
+* Rename resulting folder to `GraphvizPreview`.
+* Place the folder in your Sublime Text Packages folder.
 
 ## Changelog
 

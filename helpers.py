@@ -1,10 +1,12 @@
 from subprocess import call
 import os
+import platform
 import re
 import tempfile
 
 ENVIRON = os.environ
-ENVIRON['PATH'] += ':/usr/local/bin'
+if platform.system() != 'Windows':
+    ENVIRON['PATH'] += ':/usr/local/bin'
 
 DIGRAPH_START = re.compile('.*(digraph([ \t\n\r]+[a-zA-Z\200-\377_][a-zA-Z\200-\3770-9_]*[ \t\n\r]*{|[ \t\n\r]*{).*)', re.DOTALL | re.IGNORECASE)
 
