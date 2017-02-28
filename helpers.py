@@ -1,20 +1,21 @@
-from subprocess import call
+from subprocess import call, Popen, PIPE
 import os
 import platform
 import re
 import tempfile
 
-ENVIRON = os.environ
+ENVIRON = os.environ.copy()
 if platform.system() != 'Windows':
-    ENVIRON['PATH'] += ':/usr/local/bin'
-
+    ENVIRON['PATH'] += '{}/usr/local/bin'.format(os.pathsep)
 DIGRAPH_START = re.compile('.*(digraph([ \t\n\r]+[a-zA-Z\200-\377_][a-zA-Z\200-\3770-9_]*[ \t\n\r]*{|[ \t\n\r]*{).*)', re.DOTALL | re.IGNORECASE)
+DIGRAPH_NEXT = re.compile('[\n\r][ \t\n\r]*digraph[ \t\n\r]+[a-zA-Z\200-\377_][a-zA-Z\200-\3770-9_]*[ \t\n\r]*{', re.MULTILINE | re.IGNORECASE)
 
 
-def surroundingGraphviz(data, cursor):
-    '''
-    Find graphviz code in source surrounding the cursor.
-    '''
+def extract_graphviz_snippet(data, cursor):
+    """
+    Tries to extract the graphviz snippet embedded another language, for example
+    a Python comment, or markdown file.
+    """
     data_before = data[0:cursor]
     data_after = data[cursor:]
 
@@ -30,20 +31,23 @@ def surroundingGraphviz(data, cursor):
         return None
 
     # find code after selector
+    another_snippet = DIGRAPH_NEXT.search(data_after)
     code_after_match = re.compile('(' + ('.*\\}' * unopened_braces) + ').*', re.DOTALL).match(data_after)
-    if not code_after_match:
+    if another_snippet:
+        next_start = another_snippet.span()[0]
+        code_after= data_after[0:next_start]
+    elif code_after_match:
+        code_after = code_after_match.group(1)
+    else:
         return None
-    code_after = code_after_match.group(1)
 
     # done!
     code = code_before + code_after
     return code
 
 
-def graphvizPDF(code):
-    '''
-    Convert graphviz code to a PDF.
-    '''
+def graphviz_pdf(code):
+    """Convert graphviz code to a PDF."""
     # temporary graphviz file
     grapviz = tempfile.NamedTemporaryFile(prefix='sublime_text_graphviz_', dir=None, suffix='.viz', delete=False, mode='wb')
     grapviz.write(code.encode('utf-8'))
@@ -51,7 +55,23 @@ def graphvizPDF(code):
 
     # compile pdf
     pdf_filename = tempfile.mktemp(prefix='sublime_text_graphviz_', dir=None, suffix='.pdf')
-    call(['dot', '-Tpdf', '-o' + pdf_filename, grapviz.name], env=ENVIRON)
-    os.unlink(grapviz.name)
+    p = Popen(['dot', '-Tpdf', '-o' + pdf_filename, grapviz.name], env=ENVIRON, stderr=PIPE)
+    _, stderr = p.communicate()
+    if p.returncode != 0:
+        raise GraphvizException(stderr.decode('ascii'))
 
     return pdf_filename
+
+
+def open_pdf(filename):
+    """Opens a PDF preview window."""
+    if platform.system() == 'Windows':
+        os.startfile(filename)
+    else:
+        call(['open', filename], env=ENVIRON)
+
+
+class GraphvizException(Exception):
+    def __init__(self, trace):
+        self.trace = trace
+        super(Exception, self).__init__('Graphviz error\n{}'.format(trace))

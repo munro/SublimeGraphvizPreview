@@ -1,4 +1,4 @@
-from helpers import surroundingGraphviz
+from helpers import extract_graphviz_snippet
 import unittest
 
 
@@ -36,10 +36,8 @@ deploy new production proxy to VMs
 
 class TestSurroundingGraphviz(unittest.TestCase):
     def test_valid_code(self):
-        self.assertEqual(surroundingGraphviz(TEST_SOURCE, TEST_CURSOR), TEST_CODE)
+        self.assertEqual(extract_graphviz_snippet(TEST_SOURCE, TEST_CURSOR), TEST_CODE)
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
