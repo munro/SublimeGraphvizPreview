@@ -31,8 +31,10 @@ class GraphvizPreviewCommand(sublime_plugin.TextCommand):
         try:
             if platform.system() == 'Windows':
                 os.startfile(pdf_filename)
+            elif platform.system() == 'Linux':
+                call(['xdg-open', pdf_filename], env=ENVIRON)
             else:
-                call(['open', pdf_filename], env=ENVIRON)            
+                call(['open', pdf_filename], env=ENVIRON)
         except Exception as e:
             sublime.error_message('Graphviz: Could not open PDF, ' + str(e))
             raise e
